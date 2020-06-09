@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data>
+  <data>
 
 
-          <!-- #########################   Safety First Aid ################################ -->
-            <!-- Safety First Aid Tree View -->
+    <!-- #########################   Safety First Aid ################################ -->
+    <!-- Safety First Aid Tree View -->
     <record model="ir.ui.view" id="cwl_module.view_safety_firstaid_tree">
       <field name="name">first aid</field>
       <field name="model">cwl.module.safety.firstaid</field>
@@ -17,7 +17,7 @@
       </field>
     </record>
 
-          <!-- Safety First Aid Form View -->
+    <!-- Safety First Aid Form View -->
     <record model="ir.ui.view" id="cwl_module.view_safety_firstaid_form">
       <field name="name">safety first aid</field>
       <field name="model">cwl.module.safety.firstaid</field>
@@ -78,7 +78,7 @@
       </field>
     </record>
 
-               <!-- Safety First Aid Action Call -->
+    <!-- Safety First Aid Action Call -->
     <record model="ir.actions.act_window" id="cwl_module.action_safety_firstaid">
       <field name="name">First Aid</field>
       <field name="res_model">cwl.module.safety.firstaid</field>
@@ -87,5 +87,5 @@
     </record>
 
 
-    </data>
+  </data>
 </odoo>

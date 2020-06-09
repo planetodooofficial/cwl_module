@@ -1,0 +1,56 @@
+<odoo>
+    <data>
+        <!--        OPERATIONS : TIME ENTRY VIEW      -->
+        <record model="ir.ui.view" id="cwl_module.view_operation_timeentry_tree">
+            <field name="name">time entry</field>
+            <field name="model">cwl.module.timesheet.approval</field>
+            <field name="arch" type="xml">
+                <tree string="Time Entry">
+                    <field name="time_entry_id"/>
+                    <field name="employee_id"/>
+                    <field name="date"/>
+                    <field name="project_id"/>
+                    <field name="task_id"/>
+                    <field name="category_timesheet"/>
+                    <field name="description"/>
+                    <field name="duration"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="cwl_module.view_operation_timeentry">
+            <field name="name">Time Entry</field>
+            <field name="model">cwl.module.timesheet.approval</field>
+            <field name="arch" type="xml">
+                <form string="Time Entry">
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="time_entry_id"/>
+                            </h1>
+                        </div>
+                        <br/>
+                        <group>
+                            <group>
+                                <field name="employee_id"/>
+                                <field name="date"/>
+                                <field name="project_id"/>
+                                <field name="task_id"/>
+                                <field name="category_timesheet"/>
+                                <field name="description"/>
+                                <field name="duration"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="cwl_module.action_operation_time_entry">
+            <field name="name">Time Entry</field>
+            <field name="res_model">cwl.module.timesheet.approval</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    </data>
+</odoo>

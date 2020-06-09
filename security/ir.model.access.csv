@@ -8,3 +8,4 @@ access_cwl_module_incident,cwl_module,model_cwl_module_safety_incident,base.grou
 access_cwl_module_safetype,cwl_module,model_cwl_module_conf_safe_type,base.group_user,1,1,1,1
 access_cwl_module_firsttype,cwl_module,model_cwl_module_conf_safe_firsttype,base.group_user,1,1,1,1
 access_cwl_module_cwl_labels,cwl_module,model_cwl_module_cwl_labels,base.group_user,1,1,1,1
+access_cwl_module_timesheet,cwl_module,model_cwl_module_timesheet_approval,base.group_user,1,1,1,1

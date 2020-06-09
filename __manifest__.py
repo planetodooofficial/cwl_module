@@ -39,6 +39,7 @@
         'views/label_declare_report.xml',
         'views/cwl_labels_views.xml',
         'views/cwl_labels_templates.xml',
+        'views/material_and_time_entry_view.xml',
         # 'views/templates.xml',
     ],
     # only loaded in demonstration mode
