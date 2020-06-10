@@ -5,10 +5,10 @@ class timesheet_entry(models.Model):
     _name = 'cwl.module.timesheet.approval'
     _rec_name = 'time_entry_id'
 
-    time_entry_id = fields.Char(string='Near Miss ID', readonly=True, required=True, copy=False, index=True,
-                              default=lambda self: _('New'))
-    employee_id = fields.Many2one('hr.employee', 'Employee')
-    date = fields.Date('Date')
+    time_entry_id = fields.Char(string='Time Entry ID', readonly=True, required=True, copy=False, index=True,
+                                default=lambda self: _('New'))
+    employee_id = fields.Many2one('res.users', 'Employee', default=lambda self: self.env.user.id, readonly=True)
+    date = fields.Date('Date', default=fields.Date.today, readonly=True)
     project_id = fields.Many2one('project.project', 'Project')
     task_id = fields.Many2one('project.task', 'Task')
     category_timesheet = fields.Selection(
