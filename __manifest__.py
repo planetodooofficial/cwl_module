@@ -23,6 +23,7 @@
     # always loaded
     'data': [
         'security/ir.model.access.csv',
+        'views/cwl_sequence.xml',
         'views/cwl_quality_ior.xml',
         'views/cwl_safety_incidents.xml',
         'views/cwl_safety_nearmiss.xml',
@@ -31,7 +32,6 @@
         'views/cwl_safety_firstaid.xml',
         'views/cwl_config_safetype.xml',
         'views/cwl_config_firsttype.xml',
-        'views/cwl_sequence.xml',
         'views/cwl_prod_loca.xml',
         'views/report_project_task_label.xml',
         'views/report_product_lot_label.xml',
