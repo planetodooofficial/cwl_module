@@ -4,6 +4,7 @@
         <record model="ir.ui.view" id="cwl_module.view_operation_timeentry_tree">
             <field name="name">time entry</field>
             <field name="model">cwl.module.timesheet.approval</field>
+            <field name="context">{"search_default_status_pending"}</field>
             <field name="arch" type="xml">
                 <tree string="Time Entry">
                     <field name="time_entry_id"/>
@@ -14,6 +15,7 @@
                     <field name="category_timesheet"/>
                     <field name="description"/>
                     <field name="duration"/>
+                    <field name="status"/>
                 </tree>
             </field>
         </record>
@@ -23,6 +25,10 @@
             <field name="model">cwl.module.timesheet.approval</field>
             <field name="arch" type="xml">
                 <form string="Time Entry">
+                    <header>
+                        <field name="status" widget="statusbar"/>
+                        <button string="Approve TimeEntry" class="oe_highlight" type="object" name="approve_timesheet"/>
+                    </header>
                     <sheet>
                         <div class="oe_title">
                             <h1>
@@ -34,8 +40,12 @@
                             <group>
                                 <field name="employee_id"/>
                                 <field name="date"/>
+                            </group>
+                            <group>
                                 <field name="project_id"/>
                                 <field name="task_id"/>
+                            </group>
+                            <group>
                                 <field name="category_timesheet"/>
                                 <field name="description"/>
                                 <field name="duration"/>
