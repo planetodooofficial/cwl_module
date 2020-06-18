@@ -58,6 +58,13 @@
             <field name="company_id" eval="False"/>
         </record>
 
+        <record id="material_entry_details_record" model="ir.sequence">
+            <field name="name">Material Entry Sequence</field>
+            <field name="code">Material_Entry_ID</field>
+            <field name="prefix">MAT-</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
 
         <!-- #################### Top menu item ###################-->
         <menuitem
@@ -132,12 +139,12 @@
                 parent="cwl_module.operation_menu"
                 action="cwl_module.action_operation_time_entry"/>
 
-<!--        <menuitem-->
-<!--                name="Material Entry"-->
-<!--                id="cwl_module.operations_menu_material_entry"-->
-<!--                sequence="20"-->
-<!--                parent="cwl_module.operations_menu"-->
-<!--                action="cwl_module.action_material_entry"/>-->
+        <menuitem
+                name="Material Entry"
+                id="cwl_module.operations_menu_material"
+                sequence="20"
+                parent="cwl_module.operation_menu"
+                action="cwl_module.action_material_entry"/>
         <!--Planet Odoo-->
 
         <menuitem
