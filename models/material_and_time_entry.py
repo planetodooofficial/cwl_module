@@ -54,10 +54,9 @@ class Material_Entry(models.Model):
                                     default=lambda self: _('New'))
     date = fields.Date('Date', default=fields.Date.today, readonly=True)
     employee_id = fields.Many2one('res.users', 'Employee', default=lambda self: self.env.user.id, readonly=True)
-    project_id = fields.Many2one('project.project', 'Project')
-    task_id = fields.Many2one('project.task', 'Project Task')
-    product_id = fields.Many2one('product.template', 'Material')
-    lot_id = fields.Many2one('stock.production.lot', 'Lots/Serial Numbers')
+    sale_id = fields.Many2one('sale.order', 'Project')
+    product_id = fields.Many2many('product.template', string='Material')
+    lot_id = fields.Many2many('stock.production.lot', string='Lots/Serial Numbers')
     qty = fields.Float('Quantity Used')
     status = fields.Selection([('pending', 'Pending'), ('approved', 'Approved')], default='pending')
 
@@ -67,3 +66,17 @@ class Material_Entry(models.Model):
             vals['material_entry_id'] = self.env['ir.sequence'].next_by_code('Material_Entry_ID') or _('New')
         result = super(Material_Entry, self).create(vals)
         return result
+
+    def approve_material(self):
+        if self.status == 'pending':
+            sale_order = self.env['sale.order'].search([('id', '=', self.sale_id.id)])
+            for prod in self.product_id:
+                for lot in self.lot_id:
+                    sale_order_line = self.env['sale.order.line'].create({
+                        'product_id': prod.id,
+                        'name': prod.name if prod.name else prod.name,
+                        'product_uom': prod.uom_id.id,
+                        'product_uom_qty': self.qty,
+                        'price_unit': prod.list_price,
+                        'order_id': sale_order.id
+                    })
