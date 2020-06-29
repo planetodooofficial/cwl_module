@@ -18,7 +18,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'hr', 'sale', 'purchase', 'maintenance', 'stock'],
+    'depends': ['base', 'hr', 'sale', 'purchase', 'maintenance', 'stock', 'project', 'employee_portal'],
 
     # always loaded
     'data': [
