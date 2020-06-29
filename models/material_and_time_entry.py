@@ -55,10 +55,8 @@ class Material_Entry(models.Model):
     date = fields.Date('Date', default=fields.Date.today, readonly=True)
     employee_id = fields.Many2one('res.users', 'Employee', default=lambda self: self.env.user.id, readonly=True)
     sale_id = fields.Many2one('sale.order', 'Project')
-    product_id = fields.Many2many('product.template', string='Material')
-    lot_id = fields.Many2many('stock.production.lot', string='Lots/Serial Numbers')
-    qty = fields.Float('Quantity Used')
     status = fields.Selection([('pending', 'Pending'), ('approved', 'Approved')], default='pending')
+    material_list_ids = fields.One2many('material.list', 'material_list_id', string='List of Materials')
 
     @api.model
     def create(self, vals):
@@ -70,13 +68,42 @@ class Material_Entry(models.Model):
     def approve_material(self):
         if self.status == 'pending':
             sale_order = self.env['sale.order'].search([('id', '=', self.sale_id.id)])
-            for prod in self.product_id:
-                for lot in self.lot_id:
-                    sale_order_line = self.env['sale.order.line'].create({
-                        'product_id': prod.id,
-                        'name': prod.name if prod.name else prod.name,
-                        'product_uom': prod.uom_id.id,
-                        'product_uom_qty': self.qty,
-                        'price_unit': prod.list_price,
-                        'order_id': sale_order.id
-                    })
+            for rec in self.material_list_ids:
+                product = self.env['product.product'].search([('name', '=', rec.product_id.name)])
+                sale_order_line = self.env['sale.order.line'].create({
+                    'product_id': product.id,
+                    'name': product.description if product.description else product.name,
+                    'product_uom': product.uom_id.id,
+                    'product_uom_qty': rec.qty,
+                    'price_unit': product.list_price,
+                    'order_id': sale_order.id
+                })
+            sale_order.action_confirm()
+
+            picking = self.env['stock.picking'].search([('origin', '=', sale_order.name)])
+            for record in self.material_list_ids:
+                for rec in picking.move_ids_without_package:
+                    if record.product_id.name == rec.name:
+                        rec.update({
+                            'quantity_done': record.qty
+                        })
+            picking.button_validate()
+
+            self.update({
+                'status': 'approved'
+            })
+
+
+class ProductOne2many(models.Model):
+    _name = 'material.list'
+
+    material_list_id = fields.Many2one('cwl.module.material.approval', 'Material List ID')
+    product_id = fields.Many2one('product.template', string='Material')
+    lot_id = fields.Many2one('stock.production.lot', string='Lots/Serial Numbers')
+    qty = fields.Float('Quantity Used')
+
+
+class SaleOrderInherit(models.Model):
+    _inherit = 'sale.order.line'
+
+    lot_id = fields.Many2one('stock.production.lot', string='Lots/Serial Numbers')

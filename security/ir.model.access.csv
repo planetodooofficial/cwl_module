@@ -10,5 +10,6 @@ access_cwl_module_firsttype,cwl_module,model_cwl_module_conf_safe_firsttype,base
 access_cwl_module_cwl_labels,cwl_module,model_cwl_module_cwl_labels,base.group_user,1,1,1,1
 access_cwl_module_timesheet,cwl_module,model_cwl_module_timesheet_approval,base.group_user,1,1,1,1
 access_cwl_module_material,cwl_module,model_cwl_module_material_approval,base.group_user,1,1,1,1
+access_cwl_module_material_list,cwl_module,model_material_list,base.group_user,1,1,1,1
 access_timesheet,access.timesheet,cwl_module.model_cwl_module_timesheet_approval,employee_portal.group_portal_user,1,0,0,0
 access_material,access.material,cwl_module.model_cwl_module_material_approval,employee_portal.group_portal_user,1,0,0,0
