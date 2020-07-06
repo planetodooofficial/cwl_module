@@ -57,6 +57,16 @@ class Material_Entry(models.Model):
     sale_id = fields.Many2one('sale.order', 'Project')
     status = fields.Selection([('pending', 'Pending'), ('approved', 'Approved')], default='pending')
     material_list_ids = fields.One2many('material.list', 'material_list_id', string='List of Materials')
+    button_hide = fields.Boolean('Button Hide', default=False)
+
+    current_user = fields.Many2one('res.users', compute='_get_current_user')
+
+    @api.depends()
+    def _get_current_user(self):
+        group = self.env['res.groups'].search([('name', '=', 'Portal User')])
+        is_desired_group = self.env.user.id in group.users.ids
+        if is_desired_group is True:
+            self.button_hide = True
 
     @api.model
     def create(self, vals):
@@ -98,8 +108,8 @@ class ProductOne2many(models.Model):
     _name = 'material.list'
 
     material_list_id = fields.Many2one('cwl.module.material.approval', 'Material List ID')
-    product_id = fields.Many2one('product.template', string='Material')
-    lot_id = fields.Many2one('stock.production.lot', string='Lots/Serial Numbers')
+    product_id = fields.Many2one('product.product', string='Material')
+    lot_ids = fields.Many2one('stock.production.lot', string='Lots/Serial Numbers')
     qty = fields.Float('Quantity Used')
 
 
