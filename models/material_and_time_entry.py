@@ -57,16 +57,16 @@ class Material_Entry(models.Model):
     sale_id = fields.Many2one('sale.order', 'Project')
     status = fields.Selection([('pending', 'Pending'), ('approved', 'Approved')], default='pending')
     material_list_ids = fields.One2many('material.list', 'material_list_id', string='List of Materials')
-    button_hide = fields.Boolean('Button Hide', default=False)
+    button_hide = fields.Boolean('Button Hide')
 
-    current_user = fields.Many2one('res.users', compute='_get_current_user')
-
-    @api.depends()
-    def _get_current_user(self):
+    @api.model
+    def default_get(self, fields):
+        res = super(Material_Entry, self).default_get(fields)
         group = self.env['res.groups'].search([('name', '=', 'Portal User')])
         is_desired_group = self.env.user.id in group.users.ids
         if is_desired_group is True:
-            self.button_hide = True
+            res['button_hide'] = True
+        return res
 
     @api.model
     def create(self, vals):
@@ -76,32 +76,51 @@ class Material_Entry(models.Model):
         return result
 
     def approve_material(self):
+        sale_order = self.env['sale.order'].search([('id', '=', self.sale_id.id)])
         if self.status == 'pending':
-            sale_order = self.env['sale.order'].search([('id', '=', self.sale_id.id)])
             for rec in self.material_list_ids:
-                product = self.env['product.product'].search([('name', '=', rec.product_id.name)])
                 sale_order_line = self.env['sale.order.line'].create({
-                    'product_id': product.id,
-                    'name': product.description if product.description else product.name,
-                    'product_uom': product.uom_id.id,
+                    'product_id': rec.product_id.id,
+                    'name': rec.product_id.description if rec.product_id.description else rec.product_id.name,
+                    'product_uom': rec.product_id.uom_id.id,
                     'product_uom_qty': rec.qty,
-                    'price_unit': product.list_price,
+                    'price_unit': rec.product_id.list_price,
                     'order_id': sale_order.id
                 })
+
             sale_order.action_confirm()
 
             picking = self.env['stock.picking'].search([('origin', '=', sale_order.name)])
-            for record in self.material_list_ids:
-                for rec in picking.move_ids_without_package:
-                    if record.product_id.name == rec.name:
-                        rec.update({
-                            'quantity_done': record.qty
-                        })
+            stock_move = self.env['stock.move'].search([('picking_id', '=', picking.id)])
+            for _rec in stock_move:
+                stock_move_line = self.env['stock.move.line'].search(
+                    [('picking_id', '=', picking.id), ('move_id', '=', _rec.id)])
+                if stock_move_line:
+                    for record in self.material_list_ids:
+                        if record.product_id.name == stock_move_line.product_id.name:
+                            stock_move_line.update({
+                                'qty_done': record.qty,
+                                'lot_id': record.lot_ids if record.lot_ids else False,
+                            })
+                else:
+                    for _record in self.material_list_ids:
+                        for prod in picking.move_ids_without_package:
+                            if _record.product_id.name == prod.product_id.name:
+                                prod.update({
+                                    'quantity_done': _record.qty
+                                })
+
             picking.button_validate()
 
             self.update({
                 'status': 'approved'
             })
+
+        return {
+            'type': 'ir.actions.act_url',
+            'target': 'self',
+            'url': '/employee/portal/'
+        }
 
 
 class ProductOne2many(models.Model):
