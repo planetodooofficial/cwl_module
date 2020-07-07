@@ -31,6 +31,7 @@
           <header>
             <button name="action_state_done" type="object" string="Mark Done" class="oe_highlight"/>
             <button name="action_state_open" type="object" string="Re-Open" class="oe_highlight"/>
+            <button name="back_to_web" type="object" string="Home" class="oe_highlight" sequence="1"/>
             <field name="ior_state" widget="statusbar" statusbar_visable="open,done"/>
           </header>
           <sheet>
@@ -86,7 +87,7 @@
                     <field name="ior_prob_disp"/>
                   </group>
                   <group>
-                          <field name="ior_disp_appr"/>                       <!-- PLANET ODOO: -->
+                    <field name="ior_disp_appr"/>                       <!-- PLANET ODOO: -->
                   </group>
                 </group>
                 <group>
@@ -133,7 +134,7 @@
       </field>
     </record>
 
-   <!-- Quality  Improvement Opportunity ReportsAction Call -->
+    <!-- Quality  Improvement Opportunity ReportsAction Call -->
     <record model="ir.actions.act_window" id="cwl_module.action_quality_ior">
       <field name="name">Improvement Opportunity Reports</field>
       <field name="res_model">cwl.module.quality.ior</field>

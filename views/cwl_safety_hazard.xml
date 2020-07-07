@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data>
+  <data>
 
 
 
-<!-- #########################   Safety Hazard Conditions ################################ -->
-      <!-- Safety Hazard Cond Tree View -->
+    <!-- #########################   Safety Hazard Conditions ################################ -->
+    <!-- Safety Hazard Cond Tree View -->
     <record model="ir.ui.view" id="cwl_module.view_safety_hazard_tree">
       <field name="name">safety hazard</field>
       <field name="model">cwl.module.safety.hazard</field>
@@ -21,7 +21,7 @@
       </field>
     </record>
 
-          <!-- Safety Hazard Cond Form View -->
+    <!-- Safety Hazard Cond Form View -->
     <record model="ir.ui.view" id="cwl_module.view_safety_hazard_form">
       <field name="name">safety hazard</field>
       <field name="model">cwl.module.safety.hazard</field>
@@ -30,6 +30,7 @@
           <header>
             <button name="action_state_done" type="object" string="Mark Done" class="oe_highlight"/>
             <button name="action_state_open" type="object" string="Re-Open" class="oe_highlight"/>
+            <button name="back_to_web" type="object" string="Home" class="oe_highlight" sequence="1"/>
             <field name="hazard_state" widget="statusbar" statusbar_visable="open,done"/>
           </header>
           <sheet>
@@ -53,16 +54,16 @@
               <page string="Description" name="descrip">
                 <h2><u>Description</u></h2>
                 <group>
-                    <field name = "hazard_desc" required="1"/>
-                    <field name="hazard_act" required="1"/>
+                  <field name = "hazard_desc" required="1"/>
+                  <field name="hazard_act" required="1"/>
                   <field name="hazard_type"/>
-                    <field name="hazard_rec"/>
+                  <field name="hazard_rec"/>
                 </group>
                 <br/>
                 <h2><u>Corrective Action</u></h2>
                 <group>
-                    <field name="hazard_corr"/>
-                  </group>
+                  <field name="hazard_corr"/>
+                </group>
                 <group>
                   <group>
                     <field name="hazard_corr_pers"/>
@@ -89,7 +90,7 @@
                 </group>
                 <group>
                   <group>
-                      <field name="hazard_mgr_pers"/>
+                    <field name="hazard_mgr_pers"/>
                     <field name="hazard_mgr_date"/>
                   </group>
                 </group>
@@ -100,7 +101,7 @@
       </field>
     </record>
 
-          <!-- Safety Hazard Cond Action Call -->
+    <!-- Safety Hazard Cond Action Call -->
     <record model="ir.actions.act_window" id="cwl_module.action_safety_hazard">
       <field name="name">Hazard Conditions</field>
       <field name="res_model">cwl.module.safety.hazard</field>
@@ -109,5 +110,5 @@
     </record>
 
 
-    </data>
+  </data>
 </odoo>

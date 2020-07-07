@@ -45,6 +45,14 @@ class timesheet_entry(models.Model):
         else:
             raise ValidationError(_("Time Entry has already been approved and processed."))
 
+    @api.multi
+    def back_to_web(self):
+        return {
+            'type': 'ir.actions.act_url',
+            'target': 'self',
+            'url': '/employee/portal/'
+        }
+
 
 class Material_Entry(models.Model):
     _name = 'cwl.module.material.approval'
@@ -122,6 +130,13 @@ class Material_Entry(models.Model):
             'url': '/employee/portal/'
         }
 
+    @api.multi
+    def back_to_web(self):
+        return {
+            'type': 'ir.actions.act_url',
+            'target': 'self',
+            'url': '/employee/portal/'
+        }
 
 class ProductOne2many(models.Model):
     _name = 'material.list'

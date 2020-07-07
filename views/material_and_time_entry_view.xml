@@ -28,6 +28,7 @@
                     <header>
                         <field name="status" widget="statusbar"/>
                         <button string="Approve TimeEntry" class="oe_highlight" type="object" name="approve_timesheet"/>
+                        <button name="back_to_web" type="object" string="Home" class="oe_highlight" sequence="1"/>
                     </header>
                     <sheet>
                         <div class="oe_title">
@@ -87,6 +88,7 @@
                         <field name="status" widget="statusbar"/>
                         <button string="Confirm" class="oe_highlight" type="object" name="approve_material"
                                 attrs="{'invisible': [('button_hide', '=', True)]}"/>
+                        <button name="back_to_web" type="object" string="Home" class="oe_highlight" sequence="1"/>
                     </header>
                     <sheet>
                         <div class="oe_title">

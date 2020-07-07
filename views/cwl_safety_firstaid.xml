@@ -23,6 +23,9 @@
       <field name="model">cwl.module.safety.firstaid</field>
       <field name="arch" type="xml">
         <form string="First Aid">
+          <header>
+            <button name="back_to_web" type="object" string="Home" class="oe_highlight" sequence="1"/>
+          </header>
           <sheet>
             <div class="oe_title">
               <h1>

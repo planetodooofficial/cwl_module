@@ -23,6 +23,9 @@
       <field name="model">cwl.module.safety.nearmiss</field>
       <field name="arch" type="xml">
         <form string="Near Misses">
+          <header>
+            <button name="back_to_web" type="object" string="Home" class="oe_highlight" sequence="1"/>
+          </header>
           <sheet>
             <div class="oe_title">
               <h1>

@@ -108,4 +108,12 @@ class cwl_quality_ior(models.Model):
         for rec in self:
             rec.ior_state = 'open'
 
+    @api.multi
+    def back_to_web(self):
+        return {
+            'type': 'ir.actions.act_url',
+            'target': 'self',
+            'url': '/employee/portal/'
+        }
+
 

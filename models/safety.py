@@ -26,6 +26,14 @@ class cwl_safety_nearmiss(models.Model):
         result = super(cwl_safety_nearmiss, self).create(vals)
         return result
 
+    @api.multi
+    def back_to_web(self):
+        return {
+            'type': 'ir.actions.act_url',
+            'target': 'self',
+            'url': '/employee/portal/'
+        }
+
 
 class cwl_safety_toolbox(models.Model):
     _name = 'cwl.module.safety.toolbox'
@@ -47,6 +55,14 @@ class cwl_safety_toolbox(models.Model):
             vals['toolbox_id'] = self.env['ir.sequence'].next_by_code('Safety_Toolbox_ID') or _('New')
         result = super(cwl_safety_toolbox, self).create(vals)
         return result
+
+    @api.multi
+    def back_to_web(self):
+        return {
+            'type': 'ir.actions.act_url',
+            'target': 'self',
+            'url': '/employee/portal/'
+        }
 
 
 class cwl_safety_hazard(models.Model):
@@ -94,6 +110,14 @@ class cwl_safety_hazard(models.Model):
         for rec in self:
             rec.hazard_state = 'open'
 
+    @api.multi
+    def back_to_web(self):
+        return {
+            'type': 'ir.actions.act_url',
+            'target': 'self',
+            'url': '/employee/portal/'
+        }
+
 class cwl_safety_first_aid(models.Model):
     _name = 'cwl.module.safety.firstaid'
     _rec_name = 'firstaid_id'
@@ -121,6 +145,14 @@ class cwl_safety_first_aid(models.Model):
             vals['firstaid_id'] = self.env['ir.sequence'].next_by_code('Safety_FirstAid_ID') or _('New')
         result = super(cwl_safety_first_aid, self).create(vals)
         return result
+
+    @api.multi
+    def back_to_web(self):
+        return {
+            'type': 'ir.actions.act_url',
+            'target': 'self',
+            'url': '/employee/portal/'
+        }
 
 
 class cwl_safety_incident(models.Model):
@@ -159,6 +191,14 @@ class cwl_safety_incident(models.Model):
             vals['incident_id'] = self.env['ir.sequence'].next_by_code('Safety_Incident_ID') or _('New')
         result = super(cwl_safety_incident, self).create(vals)
         return result
+
+    @api.multi
+    def back_to_web(self):
+        return {
+            'type': 'ir.actions.act_url',
+            'target': 'self',
+            'url': '/employee/portal/'
+        }
 
 
 

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data>
+  <data>
 
 
-       <!-- #########################  Safety Toolbox Talks######################### -->
-      <!-- Safety Toolbox Talk Form View -->
+    <!-- #########################  Safety Toolbox Talks######################### -->
+    <!-- Safety Toolbox Talk Form View -->
     <record model="ir.ui.view" id="cwl_module.view_safety_toolbox_tree">
       <field name="name">safety toolbox</field>
       <field name="model">cwl.module.safety.toolbox</field>
@@ -24,6 +24,9 @@
       <field name="model">cwl.module.safety.toolbox</field>
       <field name="arch" type="xml">
         <form string="Toolbox Talks">
+          <header>
+            <button name="back_to_web" type="object" string="Home" class="oe_highlight" sequence="1"/>
+          </header>
           <sheet>
             <div class="oe_title">
               <h1>
@@ -55,7 +58,7 @@
       </field>
     </record>
 
-      <!-- Safety Toolbox talk Action Call -->
+    <!-- Safety Toolbox talk Action Call -->
     <record model="ir.actions.act_window" id="cwl_module.action_safety_toolbox">
       <field name="name">Toolbox Talks</field>
       <field name="res_model">cwl.module.safety.toolbox</field>
@@ -64,5 +67,5 @@
     </record>
 
 
-    </data>
+  </data>
 </odoo>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data>
+  <data>
 
 
-          <!-- #########################   Safety Incidents ################################ -->
+    <!-- #########################   Safety Incidents ################################ -->
 
-                  <!-- Safety Incident Tree View -->
+    <!-- Safety Incident Tree View -->
     <record model="ir.ui.view" id="cwl_module.view_safety_incident_tree">
       <field name="name">incident</field>
       <field name="model">cwl.module.safety.incident</field>
@@ -19,12 +19,15 @@
       </field>
     </record>
 
-                <!-- Safety Incident Form View -->
+    <!-- Safety Incident Form View -->
     <record model="ir.ui.view" id="cwl_module.view_safety_incident_form">
       <field name="name">safety incident</field>
       <field name="model">cwl.module.safety.incident</field>
       <field name="arch" type="xml">
         <form string="Incident Report">
+          <header>
+            <button name="back_to_web" type="object" string="Home" class="oe_highlight" sequence="1"/>
+          </header>
           <sheet>
             <div class="oe_title">
               <h1>
@@ -88,7 +91,7 @@
     </record>
 
 
-      <!-- Safety Incident Action Call -->
+    <!-- Safety Incident Action Call -->
     <record model="ir.actions.act_window" id="cwl_module.action_safety_incident">
       <field name="name">Incident</field>
       <field name="res_model">cwl.module.safety.incident</field>
@@ -96,5 +99,5 @@
       <field name="view_mode">tree,form</field>
     </record>
 
-    </data>
+  </data>
 </odoo>
