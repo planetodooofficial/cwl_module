@@ -70,6 +70,7 @@ class Material_Entry(models.Model):
     @api.model
     def default_get(self, fields):
         res = super(Material_Entry, self).default_get(fields)
+        res['button_hide'] = False
         group = self.env['res.groups'].search([('name', '=', 'Portal User')])
         is_desired_group = self.env.user.id in group.users.ids
         if is_desired_group is True:
