@@ -28,6 +28,12 @@ class timesheet_entry(models.Model):
         return result
 
     def approve_timesheet(self):
+        group = self.env['res.groups'].search([('name', '=', 'Portal User')])
+        is_desired_group = self.env.user.id in group.users.ids
+        if is_desired_group is True:
+            raise ValidationError(_("Please contact your system Administration."))
+        else:
+            pass
         if self.status == 'pending':
             employee = self.env['hr.employee'].search([('user_id', '=', self.employee_id.id)])
             time_sheet = self.env['account.analytic.line'].create({
@@ -68,16 +74,6 @@ class Material_Entry(models.Model):
     button_hide = fields.Boolean('Button Hide')
 
     @api.model
-    def default_get(self, fields):
-        res = super(Material_Entry, self).default_get(fields)
-        res['button_hide'] = False
-        group = self.env['res.groups'].search([('name', '=', 'Portal User')])
-        is_desired_group = self.env.user.id in group.users.ids
-        if is_desired_group is True:
-            res['button_hide'] = True
-        return res
-
-    @api.model
     def create(self, vals):
         if vals.get('material_entry_id', _('New')) == _('New'):
             vals['material_entry_id'] = self.env['ir.sequence'].next_by_code('Material_Entry_ID') or _('New')
@@ -85,6 +81,12 @@ class Material_Entry(models.Model):
         return result
 
     def approve_material(self):
+        group = self.env['res.groups'].search([('name', '=', 'Portal User')])
+        is_desired_group = self.env.user.id in group.users.ids
+        if is_desired_group is True:
+            raise ValidationError(_("Please contact your system Administration."))
+        else:
+            pass
         sale_order = self.env['sale.order'].search([('id', '=', self.sale_id.id)])
         if self.status == 'pending':
             for rec in self.material_list_ids:
@@ -139,13 +141,14 @@ class Material_Entry(models.Model):
             'url': '/employee/portal/'
         }
 
+
 class ProductOne2many(models.Model):
     _name = 'material.list'
 
     material_list_id = fields.Many2one('cwl.module.material.approval', 'Material List ID')
     product_id = fields.Many2one('product.product', string='Material')
     lot_ids = fields.Many2one('stock.production.lot', string='Lots/Serial Numbers')
-    qty = fields.Float('Quantity Used')
+    qty = fields.Float('Quantity Used', default=1.00)
 
 
 class SaleOrderInherit(models.Model):
